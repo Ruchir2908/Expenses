@@ -1,8 +1,10 @@
 package com.example.caatulgupta.xpenses;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,11 +21,9 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     FloatingActionButton floatingActionButton;
-//    ListView listView;
     RecyclerView recyclerView;
     XpensesAdapter adapter;
     ArrayList<Xpense> Xpenses = new ArrayList<>();
-//    int testAmt = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,22 +32,13 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
+        floatingActionButton = findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(MainActivity.this, testAmt+"", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this,AddXpenseActivity.class);
                 startActivityForResult(intent,1);
-//                startActivity(intent);
-//                Xpense test = new Xpense("try",++testAmt);
-//                test.setXpenseName("try"+testAmt);
-//                test.setXpenseAmount(++testAmt);
-//                Log.i("Kya",test.getXpenseName());
-//                Log.i("Kya",test.getXpenseAmount()+"");
 
-//                Xpenses.add(test);
-//                adapter.notifyDataSetChanged();
 //                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
 //                builder.setMessage("Add Expense");
 //                builder.setPositiveButton("ADD", new DialogInterface.OnClickListener() {
@@ -62,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
 //
 //                    }
 //                });
-//                builder.setView(R.layout.activity_addXpense);
+//                builder.setView(R.layout.dialog_add_expense);
+////                builder.setView(R.layout.activity_add_xpense);
 //                AlertDialog dialog = builder.create();
 //                dialog.show();
             }
@@ -80,12 +72,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if(requestCode==1 && resultCode==2){
-//            Toast.makeText(this, "herere", Toast.LENGTH_SHORT).show();
             String XpenseName = intent.getStringExtra("Name");
-            int XpenseAmount = Integer.parseInt(intent.getStringExtra("Amount"));
             Xpense xpense = new Xpense();
+            String XpenseAmountString = intent.getStringExtra("Amount");
+            if(XpenseAmountString != null || !XpenseAmountString.equals("")){
+                int XpenseAmount = Integer.parseInt(XpenseAmountString);
+                xpense.setXpenseAmount(XpenseAmount);
+            }
             xpense.setXpenseName(XpenseName);
-            xpense.setXpenseAmount(XpenseAmount);
             Xpenses.add(xpense);
             adapter.notifyDataSetChanged();
         }
@@ -98,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
 //        int XpenseAmountClicked = xpense.getXpenseAmount();
 //        Toast.makeText(this, XpenseNameClicked+" "+XpenseAmountClicked, Toast.LENGTH_SHORT).show();
 //    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

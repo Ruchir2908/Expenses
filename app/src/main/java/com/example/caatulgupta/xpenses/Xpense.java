@@ -1,6 +1,8 @@
 package com.example.caatulgupta.xpenses;
 
-public class Xpense {
+import java.io.Serializable;
+
+public class Xpense implements Serializable {
 
     private String XpenseName;
     private int XpenseAmount;

@@ -12,6 +12,7 @@ import android.widget.TextView;
 public class DetailsActivity extends AppCompatActivity {
 
     TextView titleTextView, nameTextView, amountTextView, dateTextView, timeTextView;
+    Xpense xpense;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,17 +27,23 @@ public class DetailsActivity extends AppCompatActivity {
         dateTextView = findViewById(R.id.detailsDateTextView);
         timeTextView = findViewById(R.id.detailsTimeTextView);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
+        Intent intent = getIntent();
+        xpense = (Xpense)intent.getSerializableExtra("Xpense");
 
-//                Intent intent = new Intent(DetailsActivity.this, EditDetailsActivity.class);
+        nameTextView.setText(xpense.getXpenseName());
+        amountTextView.setText(xpense.getXpenseAmount()+"");
 
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+////                        .setAction("Action", null).show();
+//
+////                Intent intent = new Intent(DetailsActivity.this, EditDetailsActivity.class);
+//
+//            }
+//        });
     }
 
 }

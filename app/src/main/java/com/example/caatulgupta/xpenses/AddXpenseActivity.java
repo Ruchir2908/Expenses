@@ -34,12 +34,20 @@ public class AddXpenseActivity extends AppCompatActivity {
 
     public void addXpense(View view){
         Intent intent = getIntent();
-        if(nameEditText.getText().toString().trim().length()!=0){
-            intent.putExtra("Name",nameEditText.getText().toString());
-        }
-        if(amountEditText.getText().toString().trim().length()!=0){
-            intent.putExtra("Amount",amountEditText.getText().toString());
-        }
+//        if(nameEditText.getText().toString()==null){
+//            intent.putExtra("Name","Click to add title");
+//        }else {
+            intent.putExtra("Name", nameEditText.getText().toString());
+//        }
+//        if(amountEditText.getText().toString()==null){
+//            intent.putExtra("Amount","Click to add amount");
+//        }else {
+            if(amountEditText.getText() == null){
+                intent.putExtra("Amount","0");
+            }else {
+                intent.putExtra("Amount", amountEditText.getText().toString());
+            }
+//        }
         setResult(2,intent);
         finish();
     }
